@@ -1,0 +1,553 @@
+[
+  {
+    "id": "adhesivos",
+    "label": "Adhesivos",
+    "products": [
+      {
+        "id": "stickers",
+        "label": "Stickers",
+        "questions": [
+          {
+            "id": "tipo",
+            "label": "Tipo",
+            "options": [
+              {
+                "value": "10-x-8-cm",
+                "label": "10 x 8 cm",
+                "phrase": "de 10 x 8 cm"
+              },
+              {
+                "value": "10-x-6-cm-a-color",
+                "label": "10 x 6 cm a color",
+                "phrase": "de 10 x 6 cm a color"
+              },
+              {
+                "value": "tarjeta-de-9-x-5-cm",
+                "label": "Tarjeta de 9 x 5 cm",
+                "phrase": "tarjeta de 9 x 5 cm"
+              },
+              {
+                "value": "troquelados-a-full-color-de-5-cm",
+                "label": "Troquelados a full color de 5 cm",
+                "phrase": "troquelados a full color de 5 cm"
+              },
+              {
+                "value": "circular-en-couche-adhesivo-de-8-cm",
+                "label": "Circular en couché adhesivo de 8 cm",
+                "phrase": "circulares en couché adhesivo de 8 cm"
+              },
+              {
+                "value": "couche-adhesivo-con-plastificado-mate",
+                "label": "Couché adhesivo con plastificado mate",
+                "phrase": "en couché adhesivo con plastificado mate"
+              },
+              {
+                "value": "vinil-a-color-con-acabado-ploteado",
+                "label": "Vinil a color con acabado ploteado",
+                "phrase": "en vinil a color con acabado ploteado"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "etiquetas",
+        "label": "Etiquetas",
+        "questions": [
+          {
+            "id": "tipo",
+            "label": "Tipo",
+            "options": [
+              {
+                "value": "23-x-9-cm-con-plastificado-mate",
+                "label": "23 x 9 cm con plastificado mate",
+                "phrase": "de 23 x 9 cm con plastificado mate"
+              },
+              {
+                "value": "14-5-x-6-cm-con-plastificado-mate",
+                "label": "14.5 x 6 cm con plastificado mate",
+                "phrase": "de 14.5 x 6 cm con plastificado mate"
+              },
+              {
+                "value": "vinil-transparente-arclad",
+                "label": "Vinil transparente Arclad",
+                "phrase": "en vinil transparente Arclad"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "vinil",
+        "label": "Vinil",
+        "questions": [
+          {
+            "id": "tipo",
+            "label": "Tipo",
+            "options": [
+              {
+                "value": "blanco-y-laminado",
+                "label": "Blanco y laminado",
+                "phrase": "blanco y laminado"
+              },
+              {
+                "value": "calado-con-transfer-de-logotipo",
+                "label": "Calado con transfer de logotipo",
+                "phrase": "calado con transfer de logotipo"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "gran-formato",
+    "label": "Gran formato",
+    "products": [
+      {
+        "id": "banner",
+        "label": "Banner",
+        "questions": [
+          {
+            "id": "tipo",
+            "label": "Tipo",
+            "options": [
+              {
+                "value": "13-onz",
+                "label": "13 onz.",
+                "phrase": "de 13 onz."
+              },
+              {
+                "value": "0-80-x-1-90-m",
+                "label": "0.80 x 1.90 m",
+                "phrase": "de 0.80 x 1.90 m"
+              },
+              {
+                "value": "2-20-x-1-00-m",
+                "label": "2.20 x 1.00 m",
+                "phrase": "de 2.20 x 1.00 m"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "roll-screen",
+        "label": "Roll screen",
+        "questions": [
+          {
+            "id": "medida",
+            "label": "Medida",
+            "options": [
+              {
+                "value": "2-x-1-m",
+                "label": "2 x 1 m",
+                "phrase": "de 2 x 1 m"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "letrero",
+        "label": "Letrero",
+        "questions": [
+          {
+            "id": "tipo",
+            "label": "Tipo",
+            "options": [
+              {
+                "value": "vinil-aplicado-en-pvc-de-3-mm-75-x-30-cm",
+                "label": "Vinil aplicado en PVC de 3 mm, 75 x 30 cm",
+                "phrase": "en vinil aplicado en PVC de 3 mm de 75 x 30 cm"
+              },
+              {
+                "value": "pvc-fotoluminiscente-30-x-20-cm",
+                "label": "PVC fotoluminiscente, 30 x 20 cm",
+                "phrase": "en PVC fotoluminiscente de 30 x 20 cm"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "impresion-comercial",
+    "label": "Impresión comercial",
+    "products": [
+      {
+        "id": "cartas",
+        "label": "Cartas",
+        "questions": [
+          {
+            "id": "tipo",
+            "label": "Tipo",
+            "options": [
+              {
+                "value": "a3",
+                "label": "A3",
+                "phrase": "A3"
+              },
+              {
+                "value": "a4",
+                "label": "A4",
+                "phrase": "A4"
+              },
+              {
+                "value": "a5",
+                "label": "A5",
+                "phrase": "A5"
+              },
+              {
+                "value": "a5-a-full-color",
+                "label": "A5 a full color",
+                "phrase": "A5 a full color"
+              },
+              {
+                "value": "ondo-a5-a-full-color",
+                "label": "Ondo A5 a full color",
+                "phrase": "ondo A5 a full color"
+              },
+              {
+                "value": "biocuero-de-22-x-28-cm",
+                "label": "Biocuero de 22 x 28 cm",
+                "phrase": "en biocuero de 22 x 28 cm"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "afiches",
+        "label": "Afiches",
+        "questions": [
+          {
+            "id": "medida",
+            "label": "Medida",
+            "options": [
+              {
+                "value": "a3",
+                "label": "A3",
+                "phrase": "A3"
+              },
+              {
+                "value": "39-x-54-cm",
+                "label": "39 x 54 cm",
+                "phrase": "de 39 x 54 cm"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "volantes",
+        "label": "Volantes",
+        "questions": []
+      },
+      {
+        "id": "dipticos",
+        "label": "Dípticos",
+        "questions": []
+      },
+      {
+        "id": "oficio",
+        "label": "Oficio",
+        "questions": []
+      },
+      {
+        "id": "tarjetas",
+        "label": "Tarjetas",
+        "questions": []
+      },
+      {
+        "id": "tarjetas-de-presentacion",
+        "label": "Tarjetas de presentación",
+        "questions": []
+      },
+      {
+        "id": "abanicos",
+        "label": "Abanicos",
+        "questions": [
+          {
+            "id": "forma",
+            "label": "Forma",
+            "options": [
+              {
+                "value": "circulares",
+                "label": "Circulares",
+                "phrase": "circulares"
+              },
+              {
+                "value": "triangulares",
+                "label": "Triangulares",
+                "phrase": "triangulares"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "banderines",
+        "label": "Banderines",
+        "questions": [
+          {
+            "id": "medida",
+            "label": "Medida",
+            "options": [
+              {
+                "value": "a-color-con-corte-23-x-28-cm",
+                "label": "A color con corte, 23 x 28 cm",
+                "phrase": "a color con corte de 23 x 28 cm"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "caratulas",
+        "label": "Carátulas",
+        "questions": [
+          {
+            "id": "acabado",
+            "label": "Acabado",
+            "options": [
+              {
+                "value": "grapado",
+                "label": "Grapado",
+                "phrase": "con acabado grapado"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "folder",
+        "label": "Folder",
+        "questions": [
+          {
+            "id": "acabado",
+            "label": "Acabado",
+            "options": [
+              {
+                "value": "a-color-con-plastificado-mate",
+                "label": "A color con plastificado mate",
+                "phrase": "a color con plastificado mate"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "table-tent-triangular",
+        "label": "Table tent triangular",
+        "questions": []
+      },
+      {
+        "id": "block-de-cupones",
+        "label": "Block de cupones",
+        "questions": []
+      },
+      {
+        "id": "cupones-de-sorteo",
+        "label": "Cupones de sorteo",
+        "questions": [
+          {
+            "id": "medida",
+            "label": "Medida",
+            "options": [
+              {
+                "value": "15-x-6-cm",
+                "label": "15 x 6 cm",
+                "phrase": "de 15 x 6 cm"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "editorial",
+    "label": "Editorial",
+    "products": [
+      {
+        "id": "cancioneros-de-primera-comunion",
+        "label": "Cancioneros de primera comunión",
+        "questions": [
+          {
+            "id": "tamano",
+            "label": "Tamaño",
+            "options": [
+              {
+                "value": "a5",
+                "label": "A5",
+                "phrase": "A5"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "libretas",
+        "label": "Libretas",
+        "questions": [
+          {
+            "id": "tipo",
+            "label": "Tipo",
+            "options": [
+              {
+                "value": "a5-en-foldcote-a-color-plastificado-mate-y-anillado-doble-ring",
+                "label": "A5 en foldcote a color, plastificado mate y anillado doble ring",
+                "phrase": "A5 en foldcote a color con plastificado mate y anillado doble ring"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "revista",
+        "label": "Revista",
+        "questions": []
+      }
+    ]
+  },
+  {
+    "id": "empaques",
+    "label": "Empaques",
+    "products": [
+      {
+        "id": "bolsas",
+        "label": "Bolsas",
+        "questions": [
+          {
+            "id": "tipo",
+            "label": "Tipo",
+            "options": [
+              {
+                "value": "n-20",
+                "label": "N° 20",
+                "phrase": "N° 20"
+              },
+              {
+                "value": "n-35",
+                "label": "N° 35",
+                "phrase": "N° 35"
+              },
+              {
+                "value": "a-color-en-bond-de-125-g-34-x-23-x-5-cm",
+                "label": "A color en bond de 125 g, 34 x 23 x 5 cm",
+                "phrase": "a color en bond de 125 g de 34 x 23 x 5 cm"
+              },
+              {
+                "value": "bond-de-120-g-con-asa-15-x-15-x-8-cm",
+                "label": "Bond de 120 g con asa, 15 x 15 x 8 cm",
+                "phrase": "en bond de 120 g con asa de 15 x 15 x 8 cm"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "papel-de-envoltura",
+        "label": "Papel de envoltura",
+        "questions": [
+          {
+            "id": "medida",
+            "label": "Medida",
+            "options": [
+              {
+                "value": "35-x-25-cm",
+                "label": "35 x 25 cm",
+                "phrase": "de 35 x 25 cm"
+              },
+              {
+                "value": "29-x-45-cm",
+                "label": "29 x 45 cm",
+                "phrase": "de 29 x 45 cm"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "papel-antigrasa-troquelado",
+        "label": "Papel antigrasa troquelado",
+        "questions": [
+          {
+            "id": "medida",
+            "label": "Medida",
+            "options": [
+              {
+                "value": "7-5-cm",
+                "label": "7.5 cm",
+                "phrase": "de 7.5 cm"
+              },
+              {
+                "value": "15-5-cm",
+                "label": "15.5 cm",
+                "phrase": "de 15.5 cm"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "articulos-de-mesa",
+    "label": "Artículos de mesa",
+    "products": [
+      {
+        "id": "individuales",
+        "label": "Individuales",
+        "questions": [
+          {
+            "id": "material",
+            "label": "Material",
+            "options": [
+              {
+                "value": "papel-periodico",
+                "label": "Papel periódico",
+                "phrase": "en papel periódico"
+              },
+              {
+                "value": "papel-bond",
+                "label": "Papel bond",
+                "phrase": "en papel bond"
+              },
+              {
+                "value": "bond-de-75-g",
+                "label": "Bond de 75 g",
+                "phrase": "en bond de 75 g"
+              },
+              {
+                "value": "papel-kraft",
+                "label": "Papel kraft",
+                "phrase": "en papel kraft"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "posavasos",
+        "label": "Posavasos",
+        "questions": [
+          {
+            "id": "material",
+            "label": "Material",
+            "options": [
+              {
+                "value": "foldcote-14-contraplacados",
+                "label": "Foldcote 14 contraplacados",
+                "phrase": "en foldcote 14 contraplacados"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
