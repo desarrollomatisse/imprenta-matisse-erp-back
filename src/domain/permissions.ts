@@ -165,12 +165,12 @@ const readArea = (permission: PermissionKey, area: string) =>
 const readAll = (permission: PermissionKey) =>
   grant(permission, { scopeType: ScopeType.ALL });
 
-function areaWorker(area: string, assignTo: readonly string[]) {
+function areaWorker(area: string) {
   return [
     readArea(PermissionKey.ORDERS_READ, area),
     readArea(PermissionKey.TASKS_READ, area),
     grant(PermissionKey.TASKS_INCIDENT_REPORT),
-    grant(PermissionKey.TASKS_ASSIGN, { targetAreas: assignTo }),
+    grant(PermissionKey.TASKS_ASSIGN, { targetAreas: ALL_AREA_KEYS }),
     grant(PermissionKey.ORDERS_NOTE_CREATE),
   ];
 }
@@ -188,7 +188,7 @@ const ROLE_GRANTS: Record<string, readonly PermissionGrant[]> = {
   [RoleKey.ATTENTION]: [
     readAll(PermissionKey.ORDERS_READ),
     grant(PermissionKey.ORDERS_CREATE),
-    grant(PermissionKey.ORDERS_ASSIGN, { targetAreas: [Area.DESIGN] }),
+    grant(PermissionKey.ORDERS_ASSIGN, { targetAreas: ALL_AREA_KEYS }),
     grant(PermissionKey.ORDERS_NOTE_CREATE),
     grant(PermissionKey.ORDERS_CUSTOMER_NAME_READ),
     grant(PermissionKey.ORDERS_CUSTOMER_PHONE_READ),
@@ -198,11 +198,11 @@ const ROLE_GRANTS: Record<string, readonly PermissionGrant[]> = {
     grant(PermissionKey.ORDERS_REACTIVATE),
   ],
   [RoleKey.DESIGN]: [
-    ...areaWorker(Area.DESIGN, [Area.ATTENTION, Area.PRODUCTION]),
+    ...areaWorker(Area.DESIGN),
     grant(PermissionKey.ORDERS_CUSTOMER_NAME_READ),
   ],
-  [RoleKey.PRODUCTION]: areaWorker(Area.PRODUCTION, [Area.FINISHING]),
-  [RoleKey.FINISHING]: areaWorker(Area.FINISHING, [Area.MANAGEMENT]),
+  [RoleKey.PRODUCTION]: areaWorker(Area.PRODUCTION),
+  [RoleKey.FINISHING]: areaWorker(Area.FINISHING),
   [RoleKey.MANAGEMENT]: [
     readAll(PermissionKey.ORDERS_READ),
     grant(PermissionKey.ORDERS_CREATE),

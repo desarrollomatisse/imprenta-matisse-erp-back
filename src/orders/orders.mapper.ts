@@ -9,6 +9,7 @@ import { OrderStatus, PermissionKey } from '../domain/enums';
 import {
   areaName,
   HANDOFF_DESTINATIONS,
+  roleArea,
   trackingStage,
 } from '../domain/workflow';
 import { canAssignArea } from './orders.scope';
@@ -60,8 +61,9 @@ function destinationsFor(order: OrderEntity, user: CurrentUser) {
   ) {
     return [];
   }
-  return HANDOFF_DESTINATIONS.filter(({ area }) =>
-    canAssignArea(user, area),
+  const ownArea = roleArea(user.roleKey);
+  return HANDOFF_DESTINATIONS.filter(
+    ({ area }) => area !== ownArea && canAssignArea(user, area),
   ).map(({ status, area }) => ({ status, area, label: areaName(area) }));
 }
 

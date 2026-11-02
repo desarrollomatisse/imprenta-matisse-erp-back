@@ -29,6 +29,7 @@ import {
   isActiveTaskStatus,
   isAssignableOrderStatus,
   orderStatusArea,
+  roleArea,
   trackingStage,
 } from '../domain/workflow';
 import { ResponsiblesService } from '../responsibles/responsibles.service';
@@ -606,6 +607,9 @@ export class OrdersService {
     }
     if (!canAssignArea(user, area)) {
       throw new ForbiddenError('No puedes asignar órdenes a esa área.');
+    }
+    if (area === roleArea(user.roleKey)) {
+      throw new ForbiddenError('No puedes enviar una orden a tu propia área.');
     }
     return this.updateAndRespond(
       user,

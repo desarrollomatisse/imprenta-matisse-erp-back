@@ -1,4 +1,4 @@
-import { Area, OrderStatus, TaskStatus } from './enums';
+import { Area, OrderStatus, RoleKey, TaskStatus } from './enums';
 
 // Áreas y estados son el contrato entre el front y el back; viven en código.
 export const INITIAL_STATUS_KEY: string = OrderStatus.DESIGN;
@@ -63,6 +63,19 @@ export const HANDOFF_DESTINATIONS = [
   { status: OrderStatus.FINISHING, area: Area.FINISHING },
   { status: OrderStatus.APPROVAL, area: Area.MANAGEMENT },
 ];
+
+// Área propia de cada rol de trabajo: no se ofrece como destino a quien ya
+// trabaja en ella. Superadmin, administrador y consulta no tienen área propia.
+const ROLE_AREAS: Record<string, string> = {
+  [RoleKey.ATTENTION]: Area.ATTENTION,
+  [RoleKey.DESIGN]: Area.DESIGN,
+  [RoleKey.PRODUCTION]: Area.PRODUCTION,
+  [RoleKey.FINISHING]: Area.FINISHING,
+  [RoleKey.MANAGEMENT]: Area.MANAGEMENT,
+};
+
+export const roleArea = (roleKey: string): string | undefined =>
+  ROLE_AREAS[roleKey];
 
 // Etapa visible para el cliente: resume el estado sin revelar el detalle.
 const TRACKING_STAGE_BY_STATUS: Record<string, string> = {
