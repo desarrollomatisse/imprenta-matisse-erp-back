@@ -66,6 +66,8 @@ export const PermissionKey = {
   TASKS_ASSIGN: 'tasks.assign',
   USERS_MANAGE: 'users.manage',
   CATALOG_MANAGE: 'catalog.manage',
+  RESPONSIBLES_CREATE: 'responsibles.create',
+  RESPONSIBLES_MANAGE: 'responsibles.manage',
   AUDIT_READ: 'audit.read',
 } as const;
 export type PermissionKey = (typeof PermissionKey)[keyof typeof PermissionKey];

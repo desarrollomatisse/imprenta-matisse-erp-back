@@ -30,10 +30,10 @@ function canViewArea(user: CurrentUser, area: string): boolean {
   ) {
     return true;
   }
-  return canManageArea(user, area);
+  return canAssignToArea(user, area);
 }
 
-function canManageArea(user: CurrentUser, area: string): boolean {
+function canAssignToArea(user: CurrentUser, area: string): boolean {
   if (user.isSuperadmin) return true;
   return [PermissionKey.TASKS_ASSIGN, PermissionKey.ORDERS_ASSIGN].some(
     (key) => user.grant(key)?.targetAreas.includes(area) ?? false,
@@ -86,10 +86,11 @@ export class ResponsiblesService {
 
   async create(user: CurrentUser, payload: ResponsibleCreate) {
     const { area, name } = payload;
-    if (!(area in AREA_NAMES) || !canManageArea(user, area)) {
-      throw new ForbiddenError(
-        'No puedes administrar responsables de esa área.',
-      );
+    if (!user.can(PermissionKey.RESPONSIBLES_CREATE)) {
+      throw new ForbiddenError('No puedes agregar responsables.');
+    }
+    if (!(area in AREA_NAMES)) {
+      throw new ForbiddenError('El área no existe.');
     }
     const email = payload.email ?? null;
     try {
@@ -123,22 +124,56 @@ export class ResponsiblesService {
     }
   }
 
-  async remove(user: CurrentUser, id: number): Promise<void> {
-    await this.db.transaction(async (manager) => {
-      const responsible = await manager.findOneBy(ResponsibleEntity, {
-        id: String(id),
+  /** Todos los responsables, también los suspendidos, para administrarlos. */
+  async listAll(user: CurrentUser) {
+    this.ensureCanManage(user);
+    const responsibles = await this.db.manager
+      .createQueryBuilder(ResponsibleEntity, 'r')
+      .orderBy('r.area')
+      .addOrderBy('lower(r.name)')
+      .getMany();
+    return responsibles.map(toResponse);
+  }
+
+  async setActive(user: CurrentUser, id: number, active: boolean) {
+    this.ensureCanManage(user);
+    try {
+      return await this.db.transaction(async (manager) => {
+        const responsible = await manager.findOneBy(ResponsibleEntity, {
+          id: String(id),
+        });
+        if (!responsible) {
+          throw new NotFoundError('No se encontró el responsable.');
+        }
+        if (responsible.active === active) return toResponse(responsible);
+        if (
+          active &&
+          (await this.findByAreaAndName(
+            manager,
+            responsible.area,
+            responsible.name,
+          ))
+        ) {
+          throw new ConflictError(
+            'Ya existe un responsable activo con ese nombre en el área.',
+          );
+        }
+        await manager.update(ResponsibleEntity, responsible.id, { active });
+        return toResponse({ ...responsible, active });
       });
-      if (!responsible?.active) {
-        throw new NotFoundError('No se encontró el responsable.');
-      }
-      if (!canManageArea(user, responsible.area)) {
-        throw new ForbiddenError(
-          'No puedes administrar responsables de esa área.',
+    } catch (error) {
+      if (isUniqueViolation(error)) {
+        throw new ConflictError(
+          'Ya existe un responsable activo con esos datos en el área.',
         );
       }
-      await manager.update(ResponsibleEntity, responsible.id, {
-        active: false,
-      });
-    });
+      throw error;
+    }
+  }
+
+  private ensureCanManage(user: CurrentUser): void {
+    if (!user.can(PermissionKey.RESPONSIBLES_MANAGE)) {
+      throw new ForbiddenError('No puedes administrar responsables.');
+    }
   }
 }

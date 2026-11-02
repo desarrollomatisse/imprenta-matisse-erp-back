@@ -12,3 +12,6 @@ export const responsibleQuerySchema = z.object({ area: z.string().min(1) });
 export type ResponsibleQuery = z.infer<typeof responsibleQuerySchema>;
 
 export const responsibleIdSchema = z.coerce.number().int().positive();
+
+export const responsibleStatusSchema = z.strictObject({ active: z.boolean() });
+export type ResponsibleStatus = z.infer<typeof responsibleStatusSchema>;

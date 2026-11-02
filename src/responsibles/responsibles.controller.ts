@@ -1,10 +1,9 @@
 import {
   Body,
   Controller,
-  Delete,
   Get,
-  HttpCode,
   Param,
+  Patch,
   Post,
   Query,
 } from '@nestjs/common';
@@ -17,6 +16,8 @@ import {
   responsibleIdSchema,
   ResponsibleQuery,
   responsibleQuerySchema,
+  ResponsibleStatus,
+  responsibleStatusSchema,
 } from './responsibles.schemas';
 import { ResponsiblesService } from './responsibles.service';
 
@@ -32,6 +33,11 @@ export class ResponsiblesController {
     return { data: await this.responsibles.list(user, query.area) };
   }
 
+  @Get('all')
+  async listAll(@User() user: CurrentUser) {
+    return { data: await this.responsibles.listAll(user) };
+  }
+
   @Post()
   async create(
     @Body(new ZodPipe(responsibleCreateSchema)) body: ResponsibleCreate,
@@ -40,12 +46,12 @@ export class ResponsiblesController {
     return { data: await this.responsibles.create(user, body) };
   }
 
-  @Delete(':id')
-  @HttpCode(204)
-  async remove(
+  @Patch(':id')
+  async setStatus(
     @Param('id', new ZodPipe(responsibleIdSchema)) id: number,
+    @Body(new ZodPipe(responsibleStatusSchema)) body: ResponsibleStatus,
     @User() user: CurrentUser,
-  ): Promise<void> {
-    await this.responsibles.remove(user, id);
+  ) {
+    return { data: await this.responsibles.setActive(user, id, body.active) };
   }
 }
