@@ -13,13 +13,13 @@ export type AppRequest = Request & {
 const ACCESS_COOKIE = 'matisse_access';
 const REFRESH_COOKIE = 'matisse_refresh';
 
-// Ambas viajan por /api: el navegador las envía también en <img> y descargas,
-// que no pueden reintentar una petición después de renovar la sesión.
+// Ambas viajan bajo la ruta pública de la API: el navegador las envía también en
+// <img> y descargas, que no pueden reintentar una petición tras renovar la sesión.
 const cookieOptions: CookieOptions = {
   httpOnly: true,
-  sameSite: 'lax',
+  sameSite: env.COOKIE_SAMESITE,
   secure: env.COOKIE_SECURE,
-  path: '/api',
+  path: env.API_COOKIE_PATH,
 };
 
 function readCookie(request: Request, name: string): string | null {

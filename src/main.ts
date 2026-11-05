@@ -11,7 +11,10 @@ async function bootstrap(): Promise<void> {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.set('trust proxy', env.TRUST_PROXY_HOPS);
   app.disable('x-powered-by');
-  app.use(helmet());
+  // La API puede estar en otro origen que el front: sin esto el navegador
+  // bloquearía los adjuntos cargados en <img>. El acceso lo siguen dando la
+  // sesión y CORS.
+  app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
   app.enableCors({
     origin: env.FRONTEND_ORIGIN,
     credentials: true,

@@ -20,7 +20,7 @@ pnpm seed
 pnpm start:dev
 ```
 
-Completa `.env` antes de migrar. La base indicada en `DATABASE_URL` debe existir. Si la contraseña tiene caracteres como `@`, `:`, `/` o `#`, codifícala para URL. La API escucha en `http://127.0.0.1:8000` y el proxy de Vite le reenvía `/api`.
+Completa `.env` antes de migrar. La base indicada en `DATABASE_URL` debe existir. Si la contraseña tiene caracteres como `@`, `:`, `/` o `#`, codifícala para URL. La API escucha en `http://127.0.0.1:8000`; el front la llama con la URL de `VITE_API_URL`, que debe coincidir con `API_PUBLIC_URL`.
 
 ## Migraciones
 
@@ -157,7 +157,7 @@ Las solicitudes de escritura deben enviar el header `Origin` igual a `FRONTEND_O
 
 ## Sesiones
 
-El acceso usa dos cookies `HttpOnly` y `SameSite=Lax`, ambas con ruta `/api`, por lo que la API debe publicarse bajo ese prefijo. JavaScript no puede leerlas.
+El acceso usa dos cookies `HttpOnly`, con `SameSite` según `COOKIE_SAMESITE` (`lax` por defecto) y ruta igual a la de `API_PUBLIC_URL` (`/` si no tiene ruta). JavaScript no puede leerlas.
 
 | Cookie            | Contenido                                         | Duración                                                   |
 | ----------------- | ------------------------------------------------- | ---------------------------------------------------------- |
@@ -239,7 +239,9 @@ Para generar el refresh token: habilita Google Drive API, crea un cliente OAuth 
 | `DATABASE_URL`             | Conexión PostgreSQL.                                                                                                                    |
 | `SESSION_SECRET`           | Cadena aleatoria de 32 o más caracteres para firmar los JWT. Cambiarla invalida los JWT, no las sesiones.                               |
 | `FRONTEND_ORIGIN`          | Origen exacto del frontend, por ejemplo `https://app.tu-dominio`.                                                                       |
+| `API_PUBLIC_URL`           | URL exacta de la API como la ve el navegador, con su ruta si la tiene. Es la misma que `VITE_API_URL` del front.                        |
 | `COOKIE_SECURE`            | `true` en HTTPS; `false` en desarrollo local.                                                                                           |
+| `COOKIE_SAMESITE`          | `lax` (defecto) si front y API comparten sitio; `none` si no, y exige `COOKIE_SECURE=true`.                                             |
 | `TRUST_PROXY_HOPS`         | Proxies de confianza delante de la API; por defecto 0. Ponlo en 1 detrás de un proxy o todos los clientes compartirán el límite por IP. |
 | `ALLOW_TEST_SEED`          | `true` solo en desarrollo, para permitir los seeds de prueba.                                                                           |
 | `GOOGLE_CLIENT_ID`         | Cliente OAuth usado para renovar el acceso a Drive.                                                                                     |
@@ -269,4 +271,4 @@ pnpm migration:run
 pnpm start
 ```
 
-El arranque es `dist/main.js`. La API debe servirse por HTTPS en el mismo origen que el frontend, bajo `/api`, con un proxy que quite ese prefijo antes de llegar a Nest. No publiques `.env` ni lo copies al frontend.
+El arranque es `dist/main.js`. La API debe servirse por HTTPS en la URL de `API_PUBLIC_URL`; si esa URL tiene ruta, el proxy debe quitarla antes de llegar a Nest. No publiques `.env` ni lo copies al frontend.

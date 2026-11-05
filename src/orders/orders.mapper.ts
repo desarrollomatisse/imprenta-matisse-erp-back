@@ -21,7 +21,7 @@ const BUSINESS_TIME_ZONE = 'America/Lima';
  * Google Drive: el backend entrega el archivo tras validar la sesión.
  */
 export const attachmentDownloadUrl = (fileId: string) =>
-  `${env.FRONTEND_ORIGIN}/api/archivos/${encodeURIComponent(fileId)}/descargar`;
+  `${env.API_PUBLIC_URL}/archivos/${encodeURIComponent(fileId)}/descargar`;
 
 const businessDate = (value: Date) =>
   value.toLocaleDateString('en-CA', { timeZone: BUSINESS_TIME_ZONE });

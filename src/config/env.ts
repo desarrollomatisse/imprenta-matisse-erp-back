@@ -27,6 +27,27 @@ const schema = z.object({
       }
     }, 'FRONTEND_ORIGIN debe ser un origen http(s) sin ruta, query ni fragmento.'),
 
+  // URL exacta de esta API tal como la ve el navegador, con su ruta si la hay
+  // (por ejemplo https://api.tu-dominio.pe o https://tu-dominio.pe/endpoint).
+  // El front la usa tal cual y las cookies viajan bajo su ruta.
+  API_PUBLIC_URL: z
+    .string()
+    .trim()
+    .transform((value) => value.replace(/\/+$/, ''))
+    .refine((value) => {
+      try {
+        const url = new URL(value);
+        return (
+          ['http:', 'https:'].includes(url.protocol) && !url.search && !url.hash
+        );
+      } catch {
+        return false;
+      }
+    }, 'API_PUBLIC_URL debe ser una URL http(s) sin query ni fragmento.'),
+
+  // Use none solo si el front y la API están en sitios distintos; exige HTTPS.
+  COOKIE_SAMESITE: z.enum(['lax', 'strict', 'none']).default('lax'),
+
   // Proxies de confianza delante de la API. En 0, X-Forwarded-For se ignora y
   // nadie puede falsificar su IP para esquivar el rate limit.
   TRUST_PROXY_HOPS: z.coerce.number().int().min(0).default(0),
@@ -55,8 +76,17 @@ const schema = z.object({
   ACCESS_TOKEN_TTL_SECONDS: z.coerce.number().int().positive().default(900),
 });
 
+const parsed = schema.parse(process.env);
+
+if (parsed.COOKIE_SAMESITE === 'none' && !parsed.COOKIE_SECURE) {
+  throw new Error('COOKIE_SAMESITE=none requiere COOKIE_SECURE=true.');
+}
+
 export const env = {
-  ...schema.parse(process.env),
+  ...parsed,
+  // Las cookies solo viajan bajo la ruta pública de la API ('/' si no tiene).
+  API_COOKIE_PATH:
+    new URL(parsed.API_PUBLIC_URL).pathname.replace(/\/+$/, '') || '/',
   SESSION_TTL_MS: 12 * 60 * 60 * SECOND_MS,
   // Los navegadores limitan una cookie a 400 días; cada uso renueva el plazo.
   REMEMBERED_SESSION_TTL_MS: 400 * 24 * 60 * 60 * SECOND_MS,
