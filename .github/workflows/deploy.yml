@@ -1,0 +1,63 @@
+name: Deploy API
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-api
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm build
+
+      # Paquete a subir: dist y solo las dependencias de producción. El layout
+      # hoisted evita symlinks de pnpm, que no sobreviven al rsync. Son JS puro:
+      # no hace falta compilar nada en el servidor.
+      - name: Armar paquete
+        run: |
+          mkdir deploy
+          cp -r dist package.json pnpm-lock.yaml pnpm-workspace.yaml deploy/
+          cd deploy
+          pnpm install --prod --frozen-lockfile --config.node-linker=hoisted
+
+      - name: Subir por SSH y reiniciar
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_PATH: ${{ secrets.SSH_PATH }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p "$SSH_PORT" "$SSH_HOST" >> ~/.ssh/known_hosts
+          # .env vive solo en el servidor; tmp y los logs los crea Passenger.
+          rsync -az --delete \
+            --exclude='.env' --exclude='tmp' --exclude='stderr.log' \
+            -e "ssh -i ~/.ssh/deploy_key -p $SSH_PORT" \
+            deploy/ "$SSH_USER@$SSH_HOST:$SSH_PATH/"
+          # Passenger reinicia la app al cambiar tmp/restart.txt.
+          ssh -i ~/.ssh/deploy_key -p "$SSH_PORT" "$SSH_USER@$SSH_HOST" \
+            "mkdir -p '$SSH_PATH/tmp' && touch '$SSH_PATH/tmp/restart.txt'"
